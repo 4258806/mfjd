@@ -1,1 +1,470 @@
 
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创新科技 - 首页</title>
+    <style>
+        /* 基础重置与变量定义 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #64748b;
+            --accent-color: #f59e0b;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --gray-light: #e2e8f0;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* 排版 */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.5rem; color: var(--dark-color); }
+        h3 { font-size: 1.75rem; }
+        p { margin-bottom: 1rem; color: var(--secondary-color); }
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+        .text-center { text-align: center; }
+        .section-padding {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+        /* 按钮 */
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        /* 导航栏 */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+        .nav-links a {
+            font-weight: 600;
+            color: var(--dark-color);
+            position: relative;
+        }
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        /* 英雄区域 */
+        .hero {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            overflow: hidden;
+        }
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .hero-text h1 {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+        .hero-text p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            color: var(--secondary-color);
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .hero-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .hero-image:hover img {
+            transform: scale(1.03);
+        }
+        /* 特性区域 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        .feature-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            text-align: center;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+        }
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.75rem;
+        }
+        /* 关于我们 */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        .footer-logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        .footer-links h4, .footer-contact h4 {
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        .footer-links ul {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray-light);
+        }
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .hero-content, .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .hero {
+                padding: 5rem 0;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1.5rem;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            .stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">InnovateTech</a>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#features">特性</a></li>
+                    <li><a href="#about">关于我们</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+                <div class="mobile-toggle" id="mobileToggle">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>构建数字未来，创新驱动成长</h1>
+                    <p>我们提供前沿的技术解决方案与专业服务，助力企业数字化转型，提升核心竞争力，在快速变化的市场中保持领先。</p>
+                    <div class="hero-buttons">
+                        <a href="#features" class="btn btn-primary">探索我们的服务</a>
+                        <a href="#contact" class="btn btn-outline">联系我们</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <!-- 使用SVG占位图代表科技感图像 -->
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="400" height="300" fill="#e0f2fe"/>
+                        <circle cx="200" cy="150" r="80" fill="#2563eb" opacity="0.8"/>
+                        <path d="M120 150 L200 90 L280 150 L200 210 Z" fill="#f59e0b"/>
+                        <circle cx="150" cy="120" r="15" fill="#ffffff"/>
+                        <circle cx="250" cy="120" r="15" fill="#ffffff"/>
+                        <path d="M150 180 Q200 220 250 180" stroke="#ffffff" stroke-width="8" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特性区域 -->
+    <section class="section-padding" id="features">
+        <div class="container">
+            <div class="text-center">
+                <h2>我们的核心优势</h2>
+                <p>专注于提供高质量、可扩展且安全的数字化产品与服务</p>
+            </div>
+            <div class="features-grid">
+                <article class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>前沿技术</h3>
+                    <p>采用人工智能、云计算、大数据等最新技术栈，确保解决方案的技术领先性与高效性。</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>安全可靠</h3>
+                    <p>多层安全防护与合规设计，保障客户数据与业务系统的安全稳定运行。</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>可扩展架构</h3>
+                    <p>基于微服务与模块化设计，系统可随业务增长灵活扩展，降低长期维护成本。</p>
+                </article>
+                <article class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>专业团队</h3>
+                    <p>拥有经验丰富的技术专家与顾问团队，提供从咨询、开发到运维的全周期支持。</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section class="section-padding" id="about" style="background-color: #f8fafc;">
+        <div class="container">
+            <div class="about-content">
+                <div>
+                    <h2>关于 InnovateTech</h2>
+                    <p>我们是一家专注于企业级数字化解决方案的科技公司，成立于2015年。致力于通过技术创新帮助客户优化流程、提升效率并创造新的商业价值。</p>
+                    <p>我们的使命是让复杂的技术变得简单可用，让每一个组织都能享受到数字化带来的红利。我们相信，技术是推动社会进步的重要力量。</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <h3>200+</h3>
+                            <p>成功项目</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>50+</h3>
+                            <p>合作伙伴</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>98%</h3>
+                            <p>客户满意度</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <!-- 关于我们插图 -->
+                    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="50" width="300" height="200" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                        <circle cx="150" cy="120" r="40" fill="#2563eb" opacity="0.1"/>
+                        <circle cx="250" cy="180" r="40" fill="#f59e0b" opacity="0.1"/>
+                        <line x1="100" y1="100" x2="300" y2="200" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5,5"/>
+                        <rect x="100" y="80" width="60" height="40" rx="5" fill="#2563eb" opacity="0.7"/>
+                        <rect x="240" y="160" width="60" height="40" rx="5" fill="#f59e0b" opacity="0.7"/>
+                        <text x="130" y="105" fill="white" font-family="Arial" font-size="14" text-anchor="middle">数据</text>
+                        <text x="270" y="185" fill="white" font-family="Arial" font-size="14" text-anchor="middle">洞察</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">InnovateTech</div>
+                    <p>用技术创造价值，以创新引领未来。我们期待与您合作，共同探索数字化的无限可能。</p>
+                </div>
+                <div class="footer-links">
+                    <h4>快速链接</h4>
+                    <ul>
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#features">服务</a></li>
+                        <li><a href="#about">关于</a></li>
+                        <li><a href="#contact">联系</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>联系我们</h4>
+                    <p>📧 contact@innovatetech.com</p>
+                    <p>📞 +86 400-123-4567</p>
+                    <p>📍 北京市海淀区科技园创新大厦</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2023 InnovateTech 科技有限公司. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 简单的移动端菜单交互 -->
+    <script>
+        document.getElementById('mobileToggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        // 点击链接后关闭移动菜单
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
